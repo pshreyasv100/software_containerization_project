@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-api-deployment
+  labels:
+    app: inventory-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: inventory-api
+  template:
+    metadata:
+      labels:
+        app: inventory-api
+    spec:
+      containers:
+      - name: inventory-api-container
+        image: localhost:32000/inventory-api:v1
+        ports:
+          - containerPort: 5000
+        envFrom:
+          - configMapRef:
+              name: postgres-config
+        env:
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: POSTGRES_PASSWORD

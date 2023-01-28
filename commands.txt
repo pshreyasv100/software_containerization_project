@@ -1,0 +1,22 @@
+microk8s ctr images ls |grep inventory
+
+sudo docker push localhost:32000/inventory-api:v1
+
+microk8s ctr images rm localhost:32000/inventory-api:v1
+
+
+----
+
+postgres 
+psql -h localhost -U postgresadmin --password -p 30001 postgresdb
+
+- ip address of node 
+kubectl get nodes -o wide
+
+
+---
+
+curl http://192.168.0.100:30008/
+
+
+kubectl get pods -l app=inventory-api
