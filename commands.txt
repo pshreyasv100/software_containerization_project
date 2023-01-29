@@ -19,4 +19,34 @@ kubectl get nodes -o wide
 curl http://192.168.0.100:30008/
 
 
-kubectl get pods -l app=inventory-api
+kubectl get pods -l app=inventory-api 
+
+
+--- 
+generating tls certificate
+
+openssl req –x509 –newkey rsa:4090 –keyout key.pem –out cert.pem –days 365 –nodes
+
+---
+creating a secret for the certificate
+kubectl create secret tls my-tls-secret --cert=cert.pem --key=key.pem
+
+
+---
+setting up tls
+microk8s disable ingress
+
+my-tls-secret
+microk8s enable ingress:default-ssl-certificate=<namespace_name>/<secret_name>
+
+microk8s enable ingress:default-ssl-certificate=default/my-tls-secret
+
+--------------------------------------------
+alternative using cert manager
+
+You can install cert-manager with:
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
+You must uninstall it with the same yaml file:
+kubectl delete -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
+On Micro8s, you can enable it with:
+microk8s enable cert-manager
