@@ -54,6 +54,7 @@
     </style>
   </head>
   <body ng-controller="moviesCtrl">
+    <h3 style="font-family:verdana;">Movies</h3>
     <table class="styled-table">
     <thead>
         <tr>
@@ -78,7 +79,7 @@
         <label>Director:</label>
         <input type="text" ng-model="newMovieDirector" />
       </p>
-      <button ng-click="addMovie()">Submit</button>
+      <button ng-click="addMovie()">Add Movie</button>
     </form>
   </body>
 </html>
