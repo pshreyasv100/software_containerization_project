@@ -1,0 +1,28 @@
+<h3 style="font-family:verdana;">Movies</h3>
+<table class="styled-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Director</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let movie of movies">
+        <td>{{ movie.title }}</td>
+        <td>{{ movie.director }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <form>
+    <div>
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" [(ngModel)]="newMovie.title">
+    </div>
+    <div>
+      <label for="director">Director:</label>
+      <input type="text" id="director" name="director" [(ngModel)]="newMovie.director">
+    </div>
+    <button (click)="addMovies()">Add Movie</button>
+  </form>
+  
