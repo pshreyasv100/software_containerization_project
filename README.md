@@ -14,6 +14,11 @@ Create storage on hard disk before creating the volume and claim:
 sudo mkdir -p /opt/postgre/data
 
 
+sudo apt install postgresql-client
+
+psql -h localhost -U postgresadmin --password -p 30001 postgresdb 
+(enter password ) : admin123
+
 
 -----------------------------
 echo "Removing the backend image from local"
