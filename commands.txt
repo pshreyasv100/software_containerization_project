@@ -72,3 +72,11 @@ checking user permission for cluster role
 -----------------------------------------
 kubectl auth can-i list secret --namespace default --as shreyas
 kubectl auth can-i list secret --namespace cert-manager --as shreyas
+
+
+------------------------------------------------------------------------
+
+
+dry run of chart
+
+helm install --dry-run --debug ./chart  --generate-name
