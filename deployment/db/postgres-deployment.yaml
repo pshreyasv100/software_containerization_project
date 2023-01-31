@@ -28,8 +28,14 @@ spec:
                 name: postgres-secret
                 key: POSTGRES_PASSWORD
         volumeMounts:
-        - mountPath: /var/lib/postgresql/data
+        - mountPath: /opt/postgre/data
           name: postgredb
+        
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/bash","-c","sleep 20 && PGPASSWORD=$POSTGRES_PASSWORD psql $POSTGRES_DB -U $POSTGRES_USER -c \'CREATE TABLE IF NOT EXISTS movie (  id SERIAL PRIMARY KEY, title VARCHAR NOT NULL, genre VARCHAR NOT NULL)\'"] 
+
       volumes:
         - name: postgredb
           persistentVolumeClaim:

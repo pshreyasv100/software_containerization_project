@@ -2,6 +2,7 @@
 
 ## Intial setup
 
+```
 CREATE TABLE IF NOT EXISTS movie (
     id SERIAL PRIMARY KEY,
     title VARCHAR NOT NULL,
@@ -40,3 +41,6 @@ echo "-----------------------"
 echo "Deploying the backend deployment and service"
 kubectl apply -f ./deployment/backend/inventory-api-deployment.yaml
 kubectl apply -f ./deployment/backend/inventory-api-service.yaml
+
+
+```
