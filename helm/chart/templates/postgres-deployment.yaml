@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.db.app }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.db.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.db.deployment.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.db.deployment.appName }}
+    spec:
+      containers:
+      - name: {{ .Values.db.deployment.containerName }}
+        image: {{ .Values.db.deployment.image }}
+        imagePullPolicy: {{ .Values.db.deployment.imagePullPolicy }}
+        ports:
+          - containerPort: {{ .Values.db.deployment.containerPort }}
+        envFrom:
+          - configMapRef:
+              name: {{ .Values.db.deployment.configMapRef }}
+        env:
+          - name: POSTGRES_PASSWORD
+            ValuesFrom:
+              secretKeyRef:
+                name: {{ .Values.db.deployment.secretName }}
+                key: POSTGRES_PASSWORD
+        volumeMounts:
+        - mountPath: {{ .Values.db.deployment.mountPath }}
+          name: {{ .Values.db.deployment.volumeName }}
+        
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/bash","-c","{{ .Values.db.deployment.postStartCommand }}"] 
+
+      volumes:
+        - name: {{ .Values.db.deployment.volumeName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.db.deployment.persistentVolumeClaim }}

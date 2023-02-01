@@ -1,0 +1,41 @@
+# inventory-api-ingress.yaml
+apiVersion: v1
+kind: Template
+metadata:
+  name: {{ .Values.api.ingress.certManager.issuer }}
+  namespace: {{ .Values.namespace }}
+spec:
+  objects:
+  - apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: inventory-api-ingress
+      annotations:
+        nginx.ingress.kubernetes.io/enable-cors: "{{ .Values.api.ingress.cors.enabled }}"
+        nginx.ingress.kubernetes.io/cors-allow-methods: "{{ .Values.api.ingress.cors.allowedMethods }}"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "{{ .Values.api.ingress.cors.allowedOrigin }}"
+        nginx.ingress.kubernetes.io/cors-allow-credentials: "{{ .Values.api.ingress.cors.allowedCredentials }}"
+        cert-manager.io/issuer: {{ .Values.api.ingress.certManager.issuer }}
+        cert-manager.io/common-name: {{ .Values.api.ingress.certManager.commonName }}
+    spec:
+      rules:
+        - host: {{ .Values.api.ingress.hostname }}
+          http:
+            paths:
+              - path: {{ .Values.api.ingress.path }}
+                pathType: {{ .Values.api.ingress.pathType }}
+                backend:
+                  service:
+                    name: {{ .Values.api.service.appName }}
+                    port:
+                      number: {{ .Values.api.ingress.servicePort }}
+      # tls:
+      #   - hosts:
+      #     - {{ .Values.api.ingress.hostname }}
+      #     secretName: {{ .Values.api.ingress.certSecretName }}
+
+        # TLS config using openssl
+    tls:
+      - secretName: my-tls-secret
+        hosts:
+          - movies.com  
