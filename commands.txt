@@ -1,9 +1,16 @@
-microk8s ctr images ls |grep inventory
+microk8s ctr images ls |grep inventory-ui
 
 sudo docker push localhost:32000/inventory-api:v1
+sudo docker push localhost:32000/inventory-ui:v1
+
+
 
 microk8s ctr images rm localhost:32000/inventory-api:v1
 
+microk8s ctr images rm localhost:32000/inventory-ui:v1
+
+
+microk8s ctr images rm *
 
 ----
 
@@ -110,3 +117,9 @@ $gcloud container clusters list
 gcloud container clusters get-credentials <cluster-name>
 gcloud container clusters get-credentials software-containerization
 
+
+
+
+- UI
+
+sudo docker run -d -p 8888:80 angular-app:v1

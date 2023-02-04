@@ -8,6 +8,6 @@ spec:
     - protocol: TCP
       port: 8081
       targetPort: 5000
-      nodePort: 30008
+      nodePort: 30011
   selector:
     app: inventory-api

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-ui-deployment
+  labels:
+    app: inventory-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inventory-ui
+  template:
+    metadata:
+      labels:
+        app: inventory-ui
+    spec:
+      containers:
+      - name: inventory-ui-container
+        image: localhost:32000/inventory-ui:v1
+        ports:
+        - containerPort: 80
