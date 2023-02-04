@@ -91,3 +91,22 @@ kubectl auth can-i list secret --namespace cert-manager --as shreyas
 dry run of chart
 
 helm install --dry-run --debug ./chart  --generate-name
+
+
+-------------------------------------------------------------------------------
+
+gcloud commands 
+
+
+- Find the name of the cluster: You can use the following command to find the name of the cluster:
+
+$gcloud container clusters list
+
+
+
+
+- Get the credentials for the cluster: You can use the following command to get the credentials for the cluster:
+
+gcloud container clusters get-credentials <cluster-name>
+gcloud container clusters get-credentials software-containerization
+

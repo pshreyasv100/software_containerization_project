@@ -33,6 +33,8 @@ echo "-----------------------"
 echo "Building backend docker image"
 sudo docker build -t localhost:32000/inventory-api:v1 ./inventory-backend/
 
+sudo docker build -t pshreyasv/inventory-api:v1 ./inventory-backend/
+
 echo "-----------------------"
 echo "Pushing the image to microk8s registry on localhost"
 sudo docker push localhost:32000/inventory-api:v1
