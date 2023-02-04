@@ -8,14 +8,14 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
 
-    # add an annotation indicating the issuer to use.
-    cert-manager.io/issuer: my-ca-issuer
-    cert-manager.io/common-name: movies.com
+    # # add an annotation indicating the issuer to use.
+    # cert-manager.io/issuer: my-ca-issuer
+    # cert-manager.io/common-name: movies.com
 
 spec:
  
   rules:
-    - host: movies.com
+    - host: movies-api.com
       http:
         paths:
           - path: /
@@ -36,6 +36,6 @@ spec:
 
   # TLS config using cert manager
   tls: #  placing a host in the TLS config will determine what ends up in the cert's subjectAltNames
-  - hosts:
-    - movies.com
-    secretName: myingress-cert #  cert-manager will store the created certificate in this secret.
+  # - hosts:
+  #   - movies-api.com
+  #   secretName: myingress-cert #  cert-manager will store the created certificate in this secret.

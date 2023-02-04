@@ -19,9 +19,10 @@ export class MovieListComponent {
   constructor(private http: HttpClient){}
 
   ngOnInit(){
-    this.http.get('http://inventory-api-service:8081/movies')
+    // this.http.get('http://inventory-api-service:8081/movies')
+    this.http.get('http://movies-api.com/movies')
     .subscribe((data: any) => {
-      this.data = data;
+      this.data = data
     })
 
     console.log(this.data);
