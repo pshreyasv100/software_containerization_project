@@ -1,53 +1,49 @@
-
-
-## Intial setup
-
 ```
-CREATE TABLE IF NOT EXISTS movie (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR NOT NULL,
-    genre VARCHAR NOT NULL
-);
+Steps to deploy app
+-------------------
 
 Volumes
 Create storage on hard disk before creating the volume and claim:
 sudo mkdir -p /opt/postgre/data
 
 
-sudo apt install postgresql-client
-
-psql -h localhost -U postgresadmin --password -p 30001 postgresdb 
-(enter password ) : admin123
-
-
------------------------------
-echo "Removing the backend image from local"
-sudo docker rmi localhost:32000/inventory-api:v1 
+Backend 
+microk8s kubectl apply -f ./deployment/backend/inventory-api-deployment.yaml 
+microk8s kubectl apply -f ./deployment/backend/inventory-api-service.yaml 
 
 
-echo "-----------------------"
-echo "Removing the backend image from microk8s registry on localhost"
-microk8s ctr images rm localhost:32000/inventory-api:v1
+Frontend
+microk8s kubectl apply -f ./deployment/frontend/ui-deployment.yaml 
+microk8s kubectl apply -f ./deployment/frontend/ui-service.yaml 
 
-echo "-----------------------"
-echo "Building backend docker image"
-sudo docker build -t localhost:32000/inventory-api:v1 ./inventory-backend/
+TLS
+---
+Tls has been configured using cert-manager
 
-sudo docker build -t pshreyasv/inventory-api:v1 ./inventory-backend/
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
 
-echo "-----------------------"
-echo "Pushing the image to microk8s registry on localhost"
-sudo docker push localhost:32000/inventory-api:v1
+kubectl apply -f self-signed-issuer.yaml
+kubectl apply -f self-signed-cluster-issuer.yaml
+kubectl apply -f root-ca.yaml
+kubectl apply -f ca-issuer.yaml
+
+Ingress to allow access from outside the cluster
+microk8s kubectl apply -f ./deployment/inventory-ingress.yaml 
+
+Helm
+----
+Helm charts have been implemented but due to some issues it still needs more work  so we are deploying the components manually on microk8s
 
 
-echo "Deleting existing backend deployment and service"
-kubectl delete -f ./deployment/backend/inventory-api-deployment.yaml
-kubectl delete -f ./deployment/backend/inventory-api-service.yaml
+RBAC
+----
+We have implemented 2 roles developer and admin under deployment/rbac 
 
-echo "-----------------------"
-echo "Deploying the backend deployment and service"
-kubectl apply -f ./deployment/backend/inventory-api-deployment.yaml
-kubectl apply -f ./deployment/backend/inventory-api-service.yaml
+which were tested on users created by adding entries to known_tokens.csv
+
+Network-policy
+--------------
+There are 2 network policies under deployment/network-policy 
 
 
 ```
