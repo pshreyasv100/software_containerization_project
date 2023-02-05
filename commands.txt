@@ -46,7 +46,7 @@ microk8s disable ingress
 my-tls-secret
 microk8s enable ingress:default-ssl-certificate=<namespace_name>/<secret_name>
 
-microk8s enable ingress:default-ssl-certificate=default/my-tls-secret
+microk8s enable ingress:default-ssl-certificate=default/movies-release-1-tls-secret
 
 --------------------------------------------
 alternative using cert manager
