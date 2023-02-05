@@ -28,7 +28,7 @@ spec:
                   name: {{ .Release.Name }}-postgres-secret 
                   key: POSTGRES_PASSWORD 
           volumeMounts: 
-            - mountPath: /var/lib/postgresql/data 
+            - mountPath: /opt/postgre/data
               name: {{ .Release.Name }}-postgredb 
       volumes: 
         - name: {{ .Release.Name }}-postgredb 
