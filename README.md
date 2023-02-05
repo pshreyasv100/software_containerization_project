@@ -112,6 +112,15 @@ We have implemented 2 roles developer and admin under deployment/rbac
 which were tested on users created by adding entries to 
 /var/snap/microk8s/current/credentials/known_tokens.csv
 
+
+```
+kubectl apply -f ./deployment/rbac/developer-role.yaml
+kubectl apply -f ./deployment/rbac/admin-role.yaml
+kubectl apply -f ./deployment/rbac/developer-role-binding.yaml
+kubectl apply -f ./deployment/rbac/admin-role-binding.yaml
+
+```
+
 # Network-policy
 
 There are 2 network policies under 
