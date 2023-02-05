@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: inventory-api-deployment
+  name: inventory-api-deployment-canary
   labels:
     app: inventory-api
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: inventory-api
-      version : original
+      version : canary
   template:
     metadata:
       labels:
         app: inventory-api
-        version : original
+        version : canary
     spec:
       containers:
       - name: inventory-api-container

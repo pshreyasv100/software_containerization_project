@@ -79,6 +79,23 @@ kubectl scale deployment inventory-ui --replicas=5
 kubectl autoscale deployment inventory-ui --min=2 --max=4 --cpu-percent=60
 ```
 
+# Rolling Update
+```
+kubectl apply -f ./deployment/backend/inventory-api-deployment.yaml --record
+kubectl rollout status deployment/inventory-api-deployment
+kubectl get pods --show-labels
+
+```
+
+# Canary update
+We demonstrate this by have 2 versoin of deployment identified by label version(original and canary) in inventory-api-deployement.yaml and inventory-api-deployement-canary.yaml
+
+```
+kubectl scale --replicas=3 deploy inventory-api-deployment-canary 
+kubectl delete deploy inventory-api-deployement
+```
+
+
 # Helm
 
 Helm charts have been implemented but due to some issues it still needs more work  so we are deploying the components manually on microk8s
