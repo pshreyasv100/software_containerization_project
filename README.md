@@ -6,10 +6,33 @@ Volumes
 Create storage on hard disk before creating the volume and claim:
 sudo mkdir -p /opt/postgre/data
 
+The following commands can be executed directly via deploy.sh
+
+Database
+microk8s kubectl apply -f ./deployment/db/postgres-config.yaml 
+microk8s kubectl apply -f ./deployment/db/postgres-secret.yaml 
+microk8s kubectl apply -f ./deployment/db/postgres-storage.yaml microk8s kubectl apply -f ./deployment/db/postgres-deployment.yaml 
+microk8s kubectl apply -f ./deployment/db/postgres-service.yaml 
 
 Backend 
+
+Build docker image of backend
+sudo docker build -t localhost:32000/inventory-api:v1 ./inventory-backend/ 
+
+Push it microk8s local registry
+sudo docker push localhost:32000/inventory-api:v1 
+
+Deploy the backend
 microk8s kubectl apply -f ./deployment/backend/inventory-api-deployment.yaml 
 microk8s kubectl apply -f ./deployment/backend/inventory-api-service.yaml 
+
+
+Build docker image of ui
+sudo docker build -t localhost:32000/inventory-ui:v1 ./inventory-ui/  &
+
+Push it microk8s local registry
+sudo docker push localhost:32000/inventory-ui:v1 
+
 
 
 Frontend
@@ -44,6 +67,8 @@ which were tested on users created by adding entries to known_tokens.csv
 Network-policy
 --------------
 There are 2 network policies under deployment/network-policy 
+
+
 
 
 ```
