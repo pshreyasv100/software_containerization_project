@@ -60,10 +60,10 @@ Tls has been configured using cert-manager
 ```
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
 
-kubectl apply -f self-signed-issuer.yaml
-kubectl apply -f self-signed-cluster-issuer.yaml
-kubectl apply -f root-ca.yaml
-kubectl apply -f ca-issuer.yaml
+kubectl apply -f ./deployment/tls_config/self-signed-issuer.yaml
+kubectl apply -f ./deployment/tls_config/self-signed-cluster-issuer.yaml
+kubectl apply -f ./deployment/tls_config/root-ca.yaml
+kubectl apply -f ./deployment/tls_config/ca-issuer.yaml
 ``` 
 
 Ingress to allow access from outside the cluster
