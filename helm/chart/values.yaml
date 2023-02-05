@@ -45,6 +45,8 @@ backendPort: 8081
 dbPort: 5432
 hostName: movies.com
 
+
+
 # ingress:
 #     name: inventory-api-ingress
 #     cors:

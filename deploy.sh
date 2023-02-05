@@ -55,7 +55,6 @@ echo 'Deploying api ... '
 
 microk8s kubectl apply -f ./deployment/backend/inventory-api-deployment.yaml 
 microk8s kubectl apply -f ./deployment/backend/inventory-api-service.yaml 
-microk8s kubectl apply -f ./deployment/backend/inventory-api-ingress.yaml 
 
 
 ## UI
@@ -63,6 +62,6 @@ echo 'Deploying ui ... '
 
 microk8s kubectl apply -f ./deployment/frontend/ui-deployment.yaml 
 microk8s kubectl apply -f ./deployment/frontend/ui-service.yaml 
-# microk8s kubectl apply -f ./deployment/frontend/ui-ingress.yaml 
 
+microk8s kubectl apply -f ./deployment/inventory-ingress.yaml 
 

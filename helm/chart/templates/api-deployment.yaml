@@ -1,12 +1,30 @@
-apiVersion: v1 
-kind: Service 
+apiVersion: apps/v1 
+kind: Deployment 
 metadata: 
-  name: {{ .Release.Name }}-backend-service 
-spec: 
-  type: LoadBalancer 
-  ports: 
-   - protocol: TCP  
-     port: {{ .Values.backendPort }} 
-     targetPort: {{ .Values.backendTargetPort }} 
-  selector: 
+  name: {{ .Release.Name }}-backend-deployment 
+  labels: 
     app: {{ .Release.Name }}-backend
+spec: 
+  replicas: {{ .Values.replicaCount }}
+  selector: 
+    matchLabels: 
+      app: {{ .Release.Name }}-backend
+  template: 
+    metadata: 
+      labels: 
+        app: {{ .Release.Name }}-backend 
+    spec: 
+      containers: 
+      - name: {{ .Release.Name }}-backend-container 
+        image: {{ .Values.backendImage }}
+        ports: 
+        - containerPort: {{ .Values.backendTargetPort }}
+        envFrom:
+          - configMapRef:
+              name:  {{ .Release.Name }}-postgres-config 
+        env:
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-postgres-secret
+                key: POSTGRES_PASSWORD

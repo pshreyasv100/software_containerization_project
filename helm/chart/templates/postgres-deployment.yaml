@@ -30,6 +30,12 @@ spec:
           volumeMounts: 
             - mountPath: /opt/postgre/data
               name: {{ .Release.Name }}-postgredb 
+
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/bash","-c","sleep 20 && PGPASSWORD=$POSTGRES_PASSWORD psql $POSTGRES_DB -U $POSTGRES_USER -c \'CREATE TABLE IF NOT EXISTS movie (  id SERIAL PRIMARY KEY, title VARCHAR NOT NULL, genre VARCHAR NOT NULL)\'"] 
+
       volumes: 
         - name: {{ .Release.Name }}-postgredb 
           persistentVolumeClaim: 
