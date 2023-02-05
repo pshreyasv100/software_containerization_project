@@ -7,7 +7,7 @@
 
 Create storage on hard disk before creating the volume and claim:
 ```
-sudo mkdir -p /opt/postgre/data
+sudo mkdir -p /opt/postgres/data
 ```
 The following commands can be executed directly via deploy.sh
 
