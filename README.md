@@ -71,6 +71,12 @@ Ingress to allow access from outside the cluster
 microk8s kubectl apply -f ./deployment/inventory-ingress.yaml 
 ```
 
+
+# HPA
+```
+kubectl autoscale deployment inventory-ui --min=2 --max=4 --cpu-percent=60
+```
+
 # Helm
 
 Helm charts have been implemented but due to some issues it still needs more work  so we are deploying the components manually on microk8s
