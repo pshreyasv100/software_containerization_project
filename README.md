@@ -54,7 +54,7 @@ microk8s kubectl apply -f ./deployment/frontend/ui-deployment.yaml
 microk8s kubectl apply -f ./deployment/frontend/ui-service.yaml 
 ```
 
-TLS
+# TLS
 
 Tls has been configured using cert-manager
 ```
@@ -71,18 +71,22 @@ Ingress to allow access from outside the cluster
 microk8s kubectl apply -f ./deployment/inventory-ingress.yaml 
 ```
 
-Helm
+# Helm
 
 Helm charts have been implemented but due to some issues it still needs more work  so we are deploying the components manually on microk8s
 
+```
+helm install /helm/chart --generate-name
+```
 
-RBAC
+
+# RBAC
 
 We have implemented 2 roles developer and admin under deployment/rbac 
 
 which were tested on users created by adding entries to known_tokens.csv
 
-Network-policy
+# Network-policy
 
 There are 2 network policies under deployment/network-policy 
 
