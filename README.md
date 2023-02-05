@@ -89,5 +89,6 @@ which were tested on users created by adding entries to
 
 # Network-policy
 
-There are 2 network policies under deployment/network-policy 
+There are 2 network policies under 
+deployment/network-policy 
 
