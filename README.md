@@ -28,7 +28,7 @@ microk8s kubectl apply -f ./deployment/backend/inventory-api-service.yaml
 
 
 Build docker image of ui
-sudo docker build -t localhost:32000/inventory-ui:v1 ./inventory-ui/  &
+sudo docker build -t localhost:32000/inventory-ui:v1 ./inventory-ui/ 
 
 Push it microk8s local registry
 sudo docker push localhost:32000/inventory-ui:v1 
