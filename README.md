@@ -52,6 +52,9 @@ sudo docker push localhost:32000/inventory-ui:v1
 ```
 microk8s kubectl apply -f ./deployment/frontend/ui-deployment.yaml 
 microk8s kubectl apply -f ./deployment/frontend/ui-service.yaml 
+
+sudo docker push localhost:32000/inventory-ui:v2 
+
 ```
 
 # TLS

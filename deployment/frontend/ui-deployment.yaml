@@ -5,7 +5,7 @@ metadata:
   labels:
     app: inventory-ui
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: inventory-ui
