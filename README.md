@@ -74,9 +74,9 @@ microk8s kubectl apply -f ./deployment/inventory-ingress.yaml
 
 # Scaling
 ```
-kubectl scale deployment inventory-ui --replicas=5
+kubectl scale deployment inventory-api --replicas=5
 
-kubectl autoscale deployment inventory-ui --min=2 --max=4 --cpu-percent=60
+kubectl autoscale deployment inventory-api --min=2 --max=4 --cpu-percent=60
 ```
 
 # Rolling Update
