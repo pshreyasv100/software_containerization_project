@@ -84,7 +84,8 @@ helm install /helm/chart --generate-name
 
 We have implemented 2 roles developer and admin under deployment/rbac 
 
-which were tested on users created by adding entries to known_tokens.csv
+which were tested on users created by adding entries to 
+/var/snap/microk8s/current/credentials/known_tokens.csv
 
 # Network-policy
 
