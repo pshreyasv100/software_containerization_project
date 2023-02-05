@@ -119,7 +119,21 @@ kubectl apply -f ./deployment/rbac/admin-role.yaml
 kubectl apply -f ./deployment/rbac/developer-role-binding.yaml
 kubectl apply -f ./deployment/rbac/admin-role-binding.yaml
 
-```
+
+kubectl auth can-i list pod --namespace default --as developer
+kubectl auth can-i get pod --namespace default --as developer
+kubectl auth can-i create pod --namespace default --as developer
+kubectl auth can-i watch pod --namespace default --as developer
+kubectl auth can-i delete pod --namespace default --as developer
+
+
+kubectl auth can-i list pod --namespace default --as admin
+kubectl auth can-i get pod --namespace default --as admin
+kubectl auth can-i create pod --namespace default --as admin
+kubectl auth can-i watch pod --namespace default --as admin
+kubectl auth can-i delete pod --namespace default --as admin
+
+
 
 # Network-policy
 
