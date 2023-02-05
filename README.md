@@ -72,8 +72,10 @@ microk8s kubectl apply -f ./deployment/inventory-ingress.yaml
 ```
 
 
-# HPA
+# Scaling
 ```
+kubectl scale deployment inventory-ui --replicas=5
+
 kubectl autoscale deployment inventory-ui --min=2 --max=4 --cpu-percent=60
 ```
 
