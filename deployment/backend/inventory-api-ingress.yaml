@@ -34,14 +34,7 @@ spec:
                 port:
                   number: 8081
           
-          # - path: /movies/add
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: inventory-api-service
-          #       port:
-          #         number: 8081
-  
+
   # TLS config using openssl
   # tls:
   #   - secretName: my-tls-secret

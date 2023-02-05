@@ -31,18 +31,9 @@ export class MovieListComponent {
     })
   }
 
-  // ngOnInit(){
-  //   this.http.get('http://inventory-api-service:8081/movies')
-  //   this.http.get('http://movies.com/movies')
-  //   .subscribe((data: any) => {
-  //     this.data = data
-  //   })
-  //   console.log(this.data);
-  // }
-
   addMovies() {
     this.movies.push(this.newMovie);
-    console.log(this.http.post('http://movies.com/movies/add', JSON.stringify(this.newMovie)));
+    console.log(this.http.post('http://movies.com/movies/add', this.newMovie));
 
     this.newMovie = { title: '', genre: '' };
   }
