@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-todo
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/add-base-url: "true"
+  namespace: default
+spec:
+  tls:
+    - hosts:
+        - {{ .Values.hostName | quote }}
+      secretName: {{ .Release.Name }}-tls-secret
+  rules:
+  - host: {{ .Values.hostName | quote }}
+    http:
+      paths:
+      - pathType: Prefix
+        path: /backend(/|$)(.*)
+        backend:
+          service:
+            name: {{ .Release.Name }}-backend-service 
+            port:
+              number: {{ .Values.backendPort}}
+      - pathType: Prefix
+        path: /()(.*)
+        backend:
+          service:
+            name: {{ .Release.Name }}-frontend-service
+            port:
+              number: {{ .Values.frontendPort}}

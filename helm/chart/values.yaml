@@ -1,91 +1,65 @@
 namespace: default
 
-
-
 api:
 
-  app: inventory-api
-
-  deployment:
-    labelName: inventory-api
-    replicaCount: 1
-    containerName: inventory-api-container
-    image: localhost:32000/inventory-api:v1
-  
-
-
-  service:
-    appName: inventory-api-service
-    serviceType: NodePort
-    port: 8081
-    targetPort: 5000
-    nodePort: 30008
-    selectorApp: inventory-api
-    containerPort: 5000
-    configMapRef: postgres-config
-    secretName: postgres-secret
-
-
-   # values.yaml
-  ingress:
-    name: inventory-api-ingress
-    cors:
-      enabled: "true"
-      allowedMethods: "PUT, GET, POST, OPTIONS"
-      allowedOrigin: "*"
-      allowedCredentials: "true"
-
-    certManager:
-      issuer: my-ca-issuer
-      commonName: movies.com
-
-    hostname: movies.com
-    path: "/"
-    pathType: Prefix
-    servicePort: 8081
-    certSecretName: myingress-cert
- 
+  replicaCount: 3
+  image: localhost:32000/inventory-api:v1
+  serviceType: NodePort
+  port: 8081
+  targetPort: 5000
+  nodePort: 30011  
 
 
 
 db:
-  app: postgres
-
-  deployment:
-    replicas: 1
-    appName: postgres
-    containerName: postgres-container
-    image: postgres:13.1-alpine
-    imagePullPolicy: IfNotPresent
-    containerPort: 5432
-    configMapRef: postgres-config
-    secretName: postgres-secret
-    mountPath: /opt/postgre/data
-    volumeName: postgredb
-    postStartCommand: sleep 20 && PGPASSWORD=$POSTGRES_PASSWORD psql $POSTGRES_DB -U $POSTGRES_USER -c 'CREATE TABLE IF NOT EXISTS movie (  id SERIAL PRIMARY KEY, title VARCHAR NOT NULL, genre VARCHAR NOT NULL)'
-    persistentVolumeClaim: postgres-pv-claim
-
-  service:
-    appName: postgres
-    type: NodePort
-    port: 5432
-    nodePort: 30001
+  replicas: 1
+  image: postgres:13.1-alpine
+  imagePullPolicy: IfNotPresent
+  containerPort: 5432
+  mountPath: /opt/postgre/data
+  postStartCommand: sleep 20 && PGPASSWORD=$POSTGRES_PASSWORD psql $POSTGRES_DB -U $POSTGRES_USER -c 'CREATE TABLE IF NOT EXISTS movie (  id SERIAL PRIMARY KEY, title VARCHAR NOT NULL, genre VARCHAR NOT NULL)'
+  type: NodePort
+  port: 5432
+  nodePort: 30010
     
-  storage:
-    appName: postgres
-    type: local
-    storageClassName: microk8s-hostpath
-    capacity: 5Gi
-    accessModes: ReadWriteMany
-    path: "/opt/postgres/data"
+  storageType: local
+  storageClassName: microk8s-hostpath
+  capacity: 5Gi
+  accessModes: ReadWriteMany
+  path: "/opt/postgres/data"
 
-  config:
-    appName: postgres
-    POSTGRES_DB: postgresdb
-    POSTGRES_USER: postgresadmin
-    POSTGRES_PORT: 5432
-    POSTGRES_HOST: postgres-service
+  POSTGRES_DB: postgresdb
+  POSTGRES_USER: postgresadmin
+  POSTGRES_PORT: 5432
+  # POSTGRES_HOST: postgres-service
+  POSTGRES_PASSWORD: YWRtaW4xMjMK
 
-  secret:
-    POSTGRES_PASSWORD: YWRtaW4xMjMK
 
+replicaCount: 3
+frontendImage: localhost:32000/inventory-ui:v1
+frontendTargetPort: 80
+frontendPort: 8888
+backendImage: localhost:32000/inventory-api:v1
+backendTargetPort: 5000
+backendPort: 8081
+dbPort: 5432
+hostName: movies.com
+
+# ingress:
+#     name: inventory-api-ingress
+#     cors:
+#       enabled: "true"
+#       allowedMethods: "PUT, GET, POST, OPTIONS"
+#       allowedOrigin: "*"
+#       allowedCredentials: "true"
+
+#     certManager:
+#       issuer: my-ca-issuer
+#       commonName: movies.com
+
+#     hostname: movies.com
+#     path: "/"
+#     pathType: Prefix
+#     servicePort: 8081
+#     certSecretName: myingress-cert
+ 

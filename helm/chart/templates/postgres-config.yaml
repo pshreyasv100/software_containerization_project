@@ -1,12 +1,11 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Values.db.app }}
-  namespace: {{ .Values.namespace }}
-  labels:
-    app: {{ .Values.db.config.appName }}
-data:
-  POSTGRES_DB: {{ .Values.db.config.POSTGRES_DB }}
-  POSTGRES_USER: {{ .Values.db.config.POSTGRES_USER }}
-  POSTGRES_PORT: {{ .Values.db.config.POSTGRES_PORT | quote }}
-  POSTGRES_HOST: {{ .Values.db.config.POSTGRES_HOST }}
+apiVersion: v1 
+kind: ConfigMap 
+metadata: 
+  name: {{ .Release.Name }}-postgres-config 
+  labels: 
+    app: {{ .Release.Name }}-postgres 
+data: 
+  POSTGRES_DB: postgresdb 
+  POSTGRES_USER: postgresadmin 
+  POSTGRES_PORT: {{ .Values.dbPort | quote}}
+  POSTGRES_HOST: {{ .Release.Name }}-postgres-service

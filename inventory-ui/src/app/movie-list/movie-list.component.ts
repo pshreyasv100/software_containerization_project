@@ -33,7 +33,12 @@ export class MovieListComponent {
 
   addMovies() {
     this.movies.push(this.newMovie);
-    this.http.post('https://movies.com/movies/add', this.newMovie);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+  
+    this.http.post('https://movies.com/movies/add', this.newMovie, { headers });
 
     this.newMovie = { title: '', genre: '' };
   }
