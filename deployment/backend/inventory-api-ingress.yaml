@@ -15,16 +15,32 @@ metadata:
 spec:
  
   rules:
-    - host: movies-api.com
+    - host: movies.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
+                name: inventory-ui-service
+                port:
+                  number: 8888
+
+          - path: /movies
+            pathType: Prefix
+            backend:
+              service:
                 name: inventory-api-service
                 port:
                   number: 8081
+          
+          # - path: /movies/add
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: inventory-api-service
+          #       port:
+          #         number: 8081
   
   # TLS config using openssl
   # tls:
@@ -35,7 +51,7 @@ spec:
 
 
   # TLS config using cert manager
-  # tls: #  placing a host in the TLS config will determine what ends up in the cert's subjectAltNames
+  # tls: 
   # - hosts:
   #   - movies-api.com
   #   secretName: myingress-cert #  cert-manager will store the created certificate in this secret.

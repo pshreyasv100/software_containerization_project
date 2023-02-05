@@ -15,16 +15,5 @@ export class AppComponent {
   constructor(private http: HttpClient){
   }
 
-  ngOnInit(){
-    this.http.get('http://inventory-api-service:8081/movies')
-    .subscribe((data: any) => {
-      this.data = data;
-    })
-
-    console.log(this.data);
-
-
-  }
-
 
 }
