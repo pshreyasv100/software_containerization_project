@@ -1,11 +1,13 @@
-```
-Steps to deploy app
+
+
+## Steps to deploy app
 -------------------
 
-Volumes
+# Volumes
 Create storage on hard disk before creating the volume and claim:
+```
 sudo mkdir -p /opt/postgre/data
-
+```
 The following commands can be executed directly via deploy.sh
 
 Database
