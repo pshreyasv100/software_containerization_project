@@ -22,7 +22,7 @@ export class MovieListComponent {
   data:any;
 
  constructor(private http: HttpClient){
-    this.http.get('http://movies.com/movies')
+    this.http.get('https://movies.com/movies')
     .subscribe((data: any) => {
       data.forEach((item: { genre: any; title: any; }) => {              
         console.log(item.genre, item.title);
@@ -33,7 +33,7 @@ export class MovieListComponent {
 
   addMovies() {
     this.movies.push(this.newMovie);
-    console.log(this.http.post('http://movies.com/movies/add', this.newMovie));
+    this.http.post('https://movies.com/movies/add', this.newMovie);
 
     this.newMovie = { title: '', genre: '' };
   }

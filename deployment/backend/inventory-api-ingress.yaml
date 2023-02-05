@@ -9,8 +9,8 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
 
     # # add an annotation indicating the issuer to use.
-    # cert-manager.io/issuer: my-ca-issuer
-    # cert-manager.io/common-name: movies.com
+    cert-manager.io/issuer: my-ca-issuer
+    cert-manager.io/common-name: movies.com
 
 spec:
  
@@ -44,7 +44,7 @@ spec:
 
 
   # TLS config using cert manager
-  # tls: 
-  # - hosts:
-  #   - movies-api.com
-  #   secretName: myingress-cert #  cert-manager will store the created certificate in this secret.
+  tls: 
+  - hosts:
+    - movies.com
+    secretName: myingress-cert #  cert-manager will store the created certificate in this secret.

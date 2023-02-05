@@ -22,15 +22,20 @@ microk8s kubectl delete -f ./deployment/frontend/ui-service.yaml || true
 
 echo 'Building docker images ... '
 
-sudo docker build -t localhost:32000/inventory-api:v1 ./inventory-backend/ 
-sudo docker build -t localhost:32000/inventory-ui:v1 ./inventory-ui/ 
+sudo docker build -t localhost:32000/inventory-api:v1 ./inventory-backend/  &
+pid1 = $!
+wait $pid1
 
+sudo docker build -t localhost:32000/inventory-ui:v1 ./inventory-ui/  &
+pid1 = $!
+wait $pid1
 
 echo 'Pushing  docker images to registry ... '
 
 sudo docker push localhost:32000/inventory-api:v1 
 sudo docker push localhost:32000/inventory-ui:v1 
 
+sleep 10
 
 
 
@@ -41,6 +46,7 @@ sudo docker push localhost:32000/inventory-ui:v1
 # microk8s kubectl apply -f ./deployment/db/postgres-storage.yaml 
 # microk8s kubectl apply -f ./deployment/db/postgres-deployment.yaml 
 # microk8s kubectl apply -f ./deployment/db/postgres-service.yaml 
+# sleep 15
 
 
 
