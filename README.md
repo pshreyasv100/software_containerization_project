@@ -136,7 +136,7 @@ kubectl auth can-i create pod --namespace default --as admin
 kubectl auth can-i watch pod --namespace default --as admin
 kubectl auth can-i delete pod --namespace default --as admin
 
-
+```
 
 # Network-policy
 
