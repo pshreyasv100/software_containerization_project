@@ -143,3 +143,5 @@ kubectl auth can-i delete pod --namespace default --as admin
 There are 2 network policies under 
 deployment/network-policy 
 
+- To allow ingress into backend from ui
+- To deny ingress into backend pods other than ui
